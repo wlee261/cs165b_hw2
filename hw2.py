@@ -27,7 +27,7 @@ def read_data(path):
         if(data.labels[i] == "Iris-setosa"):
             data.labels[i] = 1
         else:
-            data.labels[i] = 0
+            data.labels[i] = -1
 
     # TODO: function that will read the input file and store it in the data structure
     # use the Data class defined above to store the information
@@ -56,7 +56,7 @@ def poly_kernel(d):
     """
     def kf(u, v):
         # TODO: implement the kernel function
-        return 
+        return (np.dot(u,v)+1)**d
     return kf
 
 def exp_kernel(s):
@@ -70,7 +70,11 @@ def exp_kernel(s):
     """
     def kf(u, v):
         # TODO: implement the kernel function
-        return
+        list1 = []
+        list1 = np.subtract(u, v)
+        mag = 0
+        mag = math.sqrt(sum(i**2 for i in list1))
+        return math.exp(-mag/(2*s**2))
     return kf
 
 class Perceptron:
@@ -92,9 +96,9 @@ class Perceptron:
         self.MissedLabels.append(data.labels[0])
         while converged == False:
             converged = True
-            #print(self.MissedPoints)
+            print(self.MissedPoints)
             for i in range(len(data.labels)):
-                if(self.update(data.features[0], data.labels[i]) == True):
+                if(self.update(data.features[i], data.labels[i]) == True):
                     converged = False
         return
         
@@ -135,7 +139,7 @@ class Perceptron:
         if score > 0:
             label = 1
         else:
-            label = 0
+            label = -1
         # TODO
         return label
 
@@ -153,21 +157,22 @@ class Perceptron:
 
 # Feel free to add any helper functions as needed.
 def main():
-    p = Perceptron(dot_kf, 0)
-    traindata = Data()
-    testdata = Data()
-    traindata = read_data("hw2_train.txt")
-    testdata = read_data("hw2_test.txt")
-    p.train(traindata)
-    result = []
-    result = test(traindata)
-    correct = 0
-    total = 0
-    for i in range(len(traindata)):
-        if result[i] == traindata.labels[i]:
-            correct = correct + 1
-        total = total + 1
-    print(correct/total)
+    #p = Perceptron(exp_kernel(2), 0)
+    #traindata = Data()
+    #testdata = Data()
+    #traindata = read_data("hw2_train.txt")
+    #testdata = read_data("hw2_test.txt")
+    #p.train(traindata)
+    #result = []
+    #result = p.test(traindata)
+    #correct = 0
+    #total = 0
+    #for i in range(len(traindata.labels)):
+    #    if result[i] == traindata.labels[i]:
+    #        correct = correct + 1
+    #    total = total + 1
+    #print(correct)
+    #print(total)
     return
     
 
