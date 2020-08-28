@@ -22,10 +22,10 @@ def read_data(path):
     training_file.close()
     for i in range(len(traininglist)):
         line_in_traininglist = traininglist[i].split(",")
-        feature1.append(line_in_traininglist[0])
-        feature2.append(line_in_traininglist[1])
-        feature3.append(line_in_traininglist[2])
-        feature4.append(line_in_traininglist[3])
+        feature1.append(float(line_in_traininglist[0]))
+        feature2.append(float(line_in_traininglist[1]))
+        feature3.append(float(line_in_traininglist[2]))
+        feature4.append(float(line_in_traininglist[3]))
         data.labels.append(line_in_traininglist[4].rstrip())
         if(data.labels[i] == "Iris-setosa"):
             data.labels[i] = 1
@@ -129,9 +129,10 @@ class Perceptron:
         return is_mistake
 
     def getScore(self, point):
+        score = 0
         for x in range(len(self.MissedLabels)):
-            score =  score + self.MissedLabels[x]*kf(point, self.MissedPoints[x])
-            return score
+            score =  score + self.MissedLabels[x]*self.kf(point, self.MissedPoints[x])
+        return score
 
 
 
@@ -140,7 +141,7 @@ class Perceptron:
         Given a point, predicts the label of that point (1 or -1).
         """
         score = self.getScore(point)
-        if float(score) > 0:
+        if score > 0:
             label = 1
         else:
             label = -1
