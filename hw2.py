@@ -11,31 +11,24 @@ class Data:
 def read_data(path):
     
     data = Data()
-    feature1 = []
-    feature2 = []
-    feature3 = []
-    feature4 = []
     traininglist = []
     training_file = open(path, 'r')
     for x in training_file:
         traininglist.append(x)
     training_file.close()
     for i in range(len(traininglist)):
+        data.features.append([])
         line_in_traininglist = traininglist[i].split(",")
-        feature1.append(float(line_in_traininglist[0]))
-        feature2.append(float(line_in_traininglist[1]))
-        feature3.append(float(line_in_traininglist[2]))
-        feature4.append(float(line_in_traininglist[3]))
+        data.features[i].append(float(line_in_traininglist[0]))
+        data.features[i].append(float(line_in_traininglist[1]))
+        data.features[i].append(float(line_in_traininglist[2]))
+        data.features[i].append(float(line_in_traininglist[3]))
         data.labels.append(line_in_traininglist[4].rstrip())
         if(data.labels[i] == "Iris-setosa"):
             data.labels[i] = 1
         else:
             data.labels[i] = 0
-    
-    data.features.append(feature1)
-    data.features.append(feature2)
-    data.features.append(feature3)
-    data.features.append(feature4)
+
     # TODO: function that will read the input file and store it in the data structure
     # use the Data class defined above to store the information
     return data
@@ -94,24 +87,14 @@ class Perceptron:
 
     def train(self, data):
         # TODO: Main function - train the perceptron with data
-        trainpoint = [0, 0, 0, 0]
         converged = False
-        initialpoint = [0, 0, 0, 0]
-        initialpoint[0] = data.features[0][0]
-        initialpoint[1] = data.features[1][0]
-        initialpoint[2] = data.features[2][0]
-        initialpoint[3] = data.features[3][0]
-        self.MissedPoints.append(initialpoint)
+        self.MissedPoints.append(data.features[0])
         self.MissedLabels.append(data.labels[0])
         while converged == False:
             converged = True
-            print(self.MissedPoints)
+            #print(self.MissedPoints)
             for i in range(len(data.labels)):
-                trainpoint[0] = data.features[0][i]
-                trainpoint[1] = data.features[1][i]
-                trainpoint[2] = data.features[2][i]
-                trainpoint[3] = data.features[3][i]
-                if(self.update(trainpoint, data.labels[i]) == True):
+                if(self.update(data.features[0], data.labels[i]) == True):
                     converged = False
         return
         
@@ -163,11 +146,7 @@ class Perceptron:
         # +1 means it is Iris Setosa
         # -1 means it is not Iris Setosa
         for x in range(len(data.labels)):
-            point[0] = data.features[0][x]
-            point[1] = data.features[1][x]
-            point[2] = data.features[2][x]
-            point[3] = data.features[3][x]
-            predictions.append(self.predict(point))
+            predictions.append(self.predict(data.features[x]))
 
         return predictions
 
