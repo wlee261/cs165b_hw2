@@ -50,7 +50,7 @@ def dot_kf(u, v):
         u*v
     """
     # TODO: implement the kernel function
-    return
+    return dot(u,v)
 
 def poly_kernel(d):
     """
@@ -98,6 +98,11 @@ class Perceptron:
 
     def train(self, data):
         # TODO: Main function - train the perceptron with data
+        errors = 0
+        converged = false
+        while converged = false:
+            for i in range(len(data.labels)):
+                if(
         return
         
 
@@ -134,6 +139,7 @@ class Perceptron:
 
 # Feel free to add any helper functions as needed.
 def main():
+    return
     
 
 
