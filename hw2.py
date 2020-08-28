@@ -105,12 +105,13 @@ class Perceptron:
         self.MissedLabels.append(data.labels[0])
         while converged == False:
             converged = True
+            print(self.MissedPoints)
             for i in range(len(data.labels)):
                 trainpoint[0] = data.features[0][i]
                 trainpoint[1] = data.features[1][i]
                 trainpoint[2] = data.features[2][i]
                 trainpoint[3] = data.features[3][i]
-                if(self.update(trainpoint, data.labels[i])):
+                if(self.update(trainpoint, data.labels[i]) == True):
                     converged = False
         return
         
@@ -151,7 +152,7 @@ class Perceptron:
         if score > 0:
             label = 1
         else:
-            label = -1
+            label = 0
         # TODO
         return label
 
