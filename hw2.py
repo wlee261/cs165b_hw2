@@ -96,6 +96,13 @@ class Perceptron:
         # TODO: Main function - train the perceptron with data
         trainpoint = [0, 0, 0, 0]
         converged = False
+        initialpoint = [0, 0, 0, 0]
+        initialpoint[0] = data.features[0][0]
+        initialpoint[1] = data.features[1][0]
+        initialpoint[2] = data.features[2][0]
+        initialpoint[3] = data.features[3][0]
+        self.MissedPoints.append(initialpoint)
+        self.MissedLabels.append(data.labels[0])
         while converged == False:
             converged = True
             for i in range(len(data.labels)):
